@@ -11,8 +11,7 @@ import (
 
 func main() {
 	handleInput("input.txt")
-
-} //end of main
+}
 
 func handleInput(fn string) {
 
@@ -28,30 +27,30 @@ func handleInput(fn string) {
 
 	for scanner.Scan() {
 
-		//Split by line
+		//SPLIT BY LINE
 		line := scanner.Text()
 
 		largestRed := 0
 		largestGreen := 0
 		largestBlue := 0
 
-		//Split by Game and Picks
+		//SPLIT THE LINE BY GAME AND ALL PICKS
 		game := strings.Split(line, ":")[0]
 		picks := strings.Split(line, ":")[1]
 
-		//Split by just number
+		//SPLIT BY JUST NUMBER
 		gameNum, err := strconv.Atoi(strings.Fields(game)[1])
 		if err != nil {
 			log.Fatalf("error: %s", err)
 		}
-		//Split the second half of the line by all of the words
+		//SPLIT THE SECOND HALF OF THE LINE BY ALL OF THE WORDS
 		rounds := strings.Split(picks, ";")
 
 		for _, v := range rounds {
 			splitByWord := strings.Fields(v)
 
 			for i := 0; i < len(splitByWord); i++ {
-				if i%2 == 0 { //Should always be num
+				if i%2 == 0 { //SHOULD ALWAYS BE NUM
 
 					num, err := strconv.Atoi(splitByWord[i])
 					if err != nil {
@@ -61,13 +60,10 @@ func handleInput(fn string) {
 					/* PART ONE */
 					switch {
 					case num > 12 && color == "red":
-						// fmt.Println("Do not add game #", gameNum, splitByWord)
 						gamesNotToAdd = append(gamesNotToAdd, gameNum)
 					case num > 13 && color == "green":
-						// fmt.Println("Do not add game #", gameNum, splitByWord)
 						gamesNotToAdd = append(gamesNotToAdd, gameNum)
 					case num > 14 && color == "blue":
-						// fmt.Println("Do not add game #", gameNum, splitByWord)
 						gamesNotToAdd = append(gamesNotToAdd, gameNum)
 					}
 					/* PART TWO */
@@ -80,11 +76,11 @@ func handleInput(fn string) {
 						largestBlue = num
 					}
 
-				} //end of if statement checking for modulo 2
+				} //END OF IF STATEMENT CHECKING FOR MODULO 2
 
-			} //end of loop by each individual word
+			} //END OF LOOP BY EACH INDIVIDUAL WORD
 
-		} //end of loop by rounds
+		} //END OF LOOP BY ROUNDS
 
 		for _, v := range gamesNotToAdd {
 			if gameNum != v {
@@ -100,7 +96,7 @@ func handleInput(fn string) {
 		largestCubed := largestRed * largestGreen * largestBlue
 		partTwo = append(partTwo, largestCubed)
 
-	} //end of loop by lines
+	} //END OF LOOP BY LINES
 
 	total := 0
 	for _, v := range partOne {
