@@ -30,10 +30,6 @@ func handleInput(fn string) {
 		//SPLIT BY LINE
 		line := scanner.Text()
 
-		largestRed := 0
-		largestGreen := 0
-		largestBlue := 0
-
 		//SPLIT THE LINE BY GAME AND ALL PICKS
 		game := strings.Split(line, ":")[0]
 		picks := strings.Split(line, ":")[1]
@@ -46,17 +42,23 @@ func handleInput(fn string) {
 		//SPLIT THE SECOND HALF OF THE LINE BY ALL OF THE WORDS
 		rounds := strings.Split(picks, ";")
 
+		//FOR PART TWO :
+		largestRed := 0
+		largestGreen := 0
+		largestBlue := 0
+
 		for _, v := range rounds {
-			splitByWord := strings.Fields(v)
+			splitByWord := strings.Fields(v) //THIS SPLITS EACH ROUND INTO A NUMBER AND A COLOR
 
 			for i := 0; i < len(splitByWord); i++ {
-				if i%2 == 0 { //SHOULD ALWAYS BE NUM
+				if i%2 == 0 { //EVENS SHOULD ALWAYS BE AN INT
 
 					num, err := strconv.Atoi(splitByWord[i])
 					if err != nil {
 						log.Fatalf("error: %s", err)
 					}
-					color := strings.Trim(splitByWord[i+1], ",.!?")
+					color := strings.Trim(splitByWord[i+1], ",.!?") //CHECK FOR SPECIAL CHARS AND REMOVE BEFORE SWITCH
+
 					/* PART ONE */
 					switch {
 					case num > 12 && color == "red":
